@@ -1,7 +1,28 @@
 return {
     -- Mini nvim
     { "echasnovski/mini.nvim", version = false },
-
+    -- Comments
+    {
+        'echasnovski/mini.comment',
+        version = false,
+        dependencies = {
+            "JoosepAlviste/nvim-ts-context-commentstring",
+        },
+        config = function()
+            require('ts_context_commentstring').setup {
+                enable_autocmd = false,
+            }
+            require("mini.comment").setup {
+                options = {
+                    custom_commentstring = function()
+                        return require('ts_context_commentstring.internal').calculate_commentstring({
+                            key = 'commentstring'
+                        }) or vim.bo.commentstring
+                    end,
+                },
+            }
+        end
+    },
     -- File Explorer (that works with oil)
     {
         'echasnovski/mini.files',
@@ -21,5 +42,5 @@ return {
                 MiniFiles.reveal_cwd()
             end, { desc = "Toggle into currently opened file"} )
         end
-    }
+    },
 }
