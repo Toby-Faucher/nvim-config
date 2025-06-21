@@ -57,7 +57,20 @@ return {
 
                 map("n", "<leader>gu", gs.undo_stage_hunk, "Undo Stage Hunk")
                 map("n", "<leader>gp", gs.preview_hunk, "Preview Hunk")
+
+                map("n", "<leader>gbl", function() gs.blame_line( { full = true } )  end, "Blame line")
+                map("n", "<leader>gB", gs.toggle_current_line_blame, "Toggle line blame")
+
+                map("n", "<leader>gd", gs.diffthis, "Diff this")
+                map("n", "<leader>gD", function() gs.diffthis("~") end, "Diff this ~")
+
+                map("n", "]h", gs.next_hunk, "Next hunk")
+                map("n", "[h", gs.prev_hunk, "Prev hunk")
+                
+                -- Nav
+                map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", "Gitsigns select hunk")
             end
+
         }
     }
 }
