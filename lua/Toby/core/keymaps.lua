@@ -65,4 +65,10 @@ vim.keymap.set("n", "<leader>fp", function()
     print("Filepath copied to clipboard: " .. filePath)
 end, { desc = "Copy file path to clipboard"})
 
-
+-- Run py file
+vim.api.nvim_create_user_command("RunPySolution", function()
+  vim.cmd("w")  -- Save buffer
+  local file = vim.fn.expand("%:p")
+  vim.cmd("botright split | resize 15 | terminal python3 " .. file)
+end, {})
+vim.keymap.set("n", "<leader>rp", ":RunPySolution<CR>", { desc = "Run Python file (LeetCode-style)" })
